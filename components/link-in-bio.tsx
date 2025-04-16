@@ -1,39 +1,43 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import Image from "next/image"
-import { useResponsiveImageMap } from "@/hooks/use-responsive-image-map"
+import Link from "next/link"
 
-interface Link {
+interface LinkItem {
   name: string
-  coords: string
+  top: number
+  height: number
   href: string
   alt: string
 }
 
-// Define the clickable areas and their corresponding URLs
-const links = [
+const links: LinkItem[] = [
   {
     name: "stream",
-    coords: "90,489,460,579", // Added buffer zone
+    top: 499,
+    height: 70,
     href: "https://open.spotify.com/artist/6dr34VkpdPJY7Do3PYeKoT",
     alt: "Stream Music",
   },
   {
     name: "soundcloud",
-    coords: "90,569,460,659",
+    top: 579,
+    height: 70,
     href: "https://soundcloud.com/heavymetaldg",
     alt: "SoundCloud",
   },
   {
     name: "social",
-    coords: "90,649,460,739",
+    top: 659,
+    height: 70,
     href: "https://www.instagram.com/heavymetalisloading/",
     alt: "Social Media",
   },
   {
     name: "contact",
-    coords: "90,729,460,819",
+    top: 739,
+    height: 70,
     href: "mailto:heavymetalisloading@gmail.com",
     alt: "Contact",
   },
@@ -41,13 +45,21 @@ const links = [
 
 export default function LinkInBio() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const originalWidth = 600
   const [hoveredLink, setHoveredLink] = useState<string | null>(null)
+  const [scale, setScale] = useState(1)
 
-  const { scale, getScaledCoords } = useResponsiveImageMap({
-    containerRef,
-    originalWidth,
-  })
+  const updateScale = () => {
+    if (containerRef.current) {
+      const containerWidth = containerRef.current.clientWidth
+      setScale(containerWidth / 600)
+    }
+  }
+
+  useEffect(() => {
+    updateScale()
+    window.addEventListener("resize", updateScale)
+    return () => window.removeEventListener("resize", updateScale)
+  }, [])
 
   return (
     <div ref={containerRef} className="relative w-full max-w-[600px] mx-auto px-4 h-full flex items-center">
@@ -59,30 +71,26 @@ export default function LinkInBio() {
           height={900}
           priority
           className="w-full h-auto"
-          useMap="#menu-map"
         />
-
-        <map name="menu-map">
-          {links.map((link) => (
-            <area
-              key={link.name}
-              shape="rect"
-              coords={scale !== 1 ? getScaledCoords(link.coords) : link.coords}
-              href={link.href}
-              alt={link.alt}
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => setHoveredLink(link.name)}
-              onMouseLeave={() => setHoveredLink(null)}
-              className="transition-opacity duration-200"
-              style={{
-                cursor: 'pointer',
-                opacity: hoveredLink === link.name ? 0.8 : 1
-              }}
-            />
-          ))}
-        </map>
+        
+        {links.map((link) => (
+          <Link
+            key={link.name}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute left-0 right-0 block transition-opacity duration-200"
+            style={{
+              top: `${link.top * scale}px`,
+              height: `${link.height * scale}px`,
+              opacity: hoveredLink === link.name ? 0.8 : 1,
+            }}
+            onMouseEnter={() => setHoveredLink(link.name)}
+            onMouseLeave={() => setHoveredLink(null)}
+          />
+        ))}
       </div>
     </div>
   )
 }
+
