@@ -50,8 +50,8 @@ export default function LinkInBio() {
   })
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-[600px] mx-auto px-4">
-      <div className="relative">
+    <div ref={containerRef} className="relative w-full max-w-[600px] mx-auto px-4 h-full flex items-center">
+      <div className="relative w-full">
         <Image
           src="/images/menu.png"
           alt="Heavymetal Navigation Menu"
