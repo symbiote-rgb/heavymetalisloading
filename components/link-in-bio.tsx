@@ -15,29 +15,29 @@ interface LinkItem {
 const links: LinkItem[] = [
   {
     name: "stream",
-    top: 750,
-    height: 65,
+    top: 820,
+    height: 80,
     href: "https://open.spotify.com/artist/6dr34VkpdPJY7Do3PYeKoT",
     alt: "Stream Music",
   },
   {
     name: "soundcloud",
-    top: 835,
-    height: 64,
+    top: 920,
+    height: 80,
     href: "https://soundcloud.com/heavymetaldg",
     alt: "SoundCloud",
   },
   {
     name: "social",
-    top: 920,
-    height: 65,
+    top: 1020,
+    height: 80,
     href: "https://www.instagram.com/heavymetalisloading/",
     alt: "Social Media",
   },
   {
     name: "contact",
-    top: 1005,
-    height: 65,
+    top: 1120,
+    height: 80,
     href: "mailto:heavymetalisloading@gmail.com",
     alt: "Contact",
   },
@@ -68,7 +68,7 @@ export default function LinkInBio() {
           src="/images/menu.png"
           alt="Heavymetal Navigation Menu"
           width={600}
-          height={900}
+          height={1200}
           priority
           className="w-full h-auto"
         />
@@ -79,11 +79,10 @@ export default function LinkInBio() {
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute left-0 right-0 block transition-opacity duration-200"
+            className="absolute left-[100px] w-[350px] block transition-opacity duration-200 hover:opacity-80"
             style={{
               top: `${link.top * scale}px`,
               height: `${link.height * scale}px`,
-              opacity: hoveredLink === link.name ? 0.8 : 1,
             }}
             onMouseEnter={() => setHoveredLink(link.name)}
             onMouseLeave={() => setHoveredLink(null)}
