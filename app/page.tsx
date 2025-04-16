@@ -6,9 +6,10 @@ export default function Home() {
       className="h-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: "url(/images/background.png)",
-        backgroundSize: "cover",
+        backgroundSize: "200% 200%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        animation: "diagonalScroll 60s linear infinite",
       }}
     >
       <LinkInBio />
