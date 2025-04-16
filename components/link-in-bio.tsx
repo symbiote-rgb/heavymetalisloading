@@ -1,32 +1,39 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import Image from "next/image"
 import { useResponsiveImageMap } from "@/hooks/use-responsive-image-map"
+
+interface Link {
+  name: string
+  coords: string
+  href: string
+  alt: string
+}
 
 // Define the clickable areas and their corresponding URLs
 const links = [
   {
     name: "stream",
-    coords: "100,499,450,569", // x1,y1,x2,y2
+    coords: "90,489,460,579", // Added buffer zone
     href: "https://open.spotify.com/artist/6dr34VkpdPJY7Do3PYeKoT",
     alt: "Stream Music",
   },
   {
     name: "soundcloud",
-    coords: "100,579,450,649",
+    coords: "90,569,460,659",
     href: "https://soundcloud.com/heavymetaldg",
     alt: "SoundCloud",
   },
   {
     name: "social",
-    coords: "100,659,450,729",
+    coords: "90,649,460,739",
     href: "https://www.instagram.com/heavymetalisloading/",
     alt: "Social Media",
   },
   {
     name: "contact",
-    coords: "100,739,450,809",
+    coords: "90,729,460,819",
     href: "mailto:heavymetalisloading@gmail.com",
     alt: "Contact",
   },
@@ -34,7 +41,8 @@ const links = [
 
 export default function LinkInBio() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const originalWidth = 600 // Original width of the menu image
+  const originalWidth = 600
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null)
 
   const { scale, getScaledCoords } = useResponsiveImageMap({
     containerRef,
@@ -64,6 +72,13 @@ export default function LinkInBio() {
               alt={link.alt}
               target="_blank"
               rel="noopener noreferrer"
+              onMouseEnter={() => setHoveredLink(link.name)}
+              onMouseLeave={() => setHoveredLink(null)}
+              className="transition-opacity duration-200"
+              style={{
+                cursor: 'pointer',
+                opacity: hoveredLink === link.name ? 0.8 : 1
+              }}
             />
           ))}
         </map>
