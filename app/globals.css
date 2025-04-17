@@ -20,12 +20,15 @@ body {
   padding: 0;
 }
 
-@keyframes diagonalScroll {
+@keyframes backgroundScroll {
   0% {
     background-position: 0% 0%;
   }
-  100% {
+  50% {
     background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
   }
 }
 
@@ -108,7 +111,7 @@ body {
   height: 100vh;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, var(--scanline-intensity)) 50%);
   background-size: 100% var(--scanline-size);
-  animation: scanlines 0.5s linear infinite; /* Slowed down from 0.2s to 0.5s */
+  animation: scanlines 0.5s linear infinite;
   z-index: 2;
 }
 
@@ -120,7 +123,7 @@ body {
   height: 100vh;
   background: rgba(255, 255, 255, var(--flicker-intensity));
   z-index: 3;
-  animation: flicker 8s infinite; /* Slowed down from 4s to 8s */
+  animation: flicker 8s infinite;
   pointer-events: none;
 }
 
@@ -132,6 +135,11 @@ body {
   height: 100vh;
   background: radial-gradient(circle at center, transparent 60%, rgba(0, 0, 0, var(--vignette-opacity)) 100%);
   z-index: 1;
+}
+
+.scrolling-background {
+  background-size: 200% 200%;
+  animation: backgroundScroll 120s ease-in-out infinite;
 }
 
 /* Add a hover effect for the clickable areas */
@@ -225,4 +233,3 @@ area {
     @apply bg-background text-foreground;
   }
 }
-
