@@ -4,13 +4,12 @@ import CRTOverlay from "@/components/crt-overlay"
 export default function Home() {
   return (
     <main
-      className="min-h-screen w-full flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
+      className="min-h-screen w-full flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden scrolling-background"
       style={{
         backgroundImage: "url(/images/background.png)",
-        backgroundSize: "cover",
+        backgroundSize: "200% 200%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        animation: "diagonalScroll 90s linear infinite",
       }}
     >
       <LinkInBio />
