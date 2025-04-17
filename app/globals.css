@@ -5,13 +5,19 @@
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-rgb: 0, 0, 30;
+  --scanline-size: 2px;
+  --scanline-intensity: 0.3;
+  --flicker-intensity: 0.02;
+  --vignette-opacity: 0.3;
 }
 
-html, body {
+html,
+body {
   height: 100%;
-  overflow: hidden;
-  position: fixed;
   width: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 @keyframes diagonalScroll {
@@ -23,150 +29,109 @@ html, body {
   }
 }
 
+@keyframes flicker {
+  0% {
+    opacity: 1.0;
+  }
+  2% {
+    opacity: 0.8;
+  }
+  8% {
+    opacity: 0.9;
+  }
+  9% {
+    opacity: 1.0;
+  }
+  20% {
+    opacity: 1.0;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  30% {
+    opacity: 1.0;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  42% {
+    opacity: 1.0;
+  }
+  60% {
+    opacity: 0.7;
+  }
+  62% {
+    opacity: 1.0;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 1.0;
+  }
+  100% {
+    opacity: 1.0;
+  }
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: transparent; /* Changed from rgb(var(--background-rgb)) */
+  background: transparent;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Enhanced CRT effects */
-.scanlines {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 300;
-  opacity: 0.6;
-  will-change: opacity;
-  animation: flicker 0.15s infinite;
-  background-size: 100% 2px;
-  background-repeat: repeat-y;
-}
-
-.scanlines::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.1) 50%,
-    transparent 100%
-  );
-  background-size: 100% 4px;
-  animation: scanline 6s linear infinite;
-}
-
 .crt-overlay {
-  pointer-events: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 250;
-  background: 
-    radial-gradient(
-      circle at center,
-      transparent 0%,
-      rgba(0, 0, 0, 0.2) 50%,
-      rgba(0, 0, 0, 0.5) 100%
-    );
-  mix-blend-mode: overlay;
-  animation: crt-pulse 4s ease-in-out infinite;
+  z-index: 10;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.crt-overlay::before {
-  content: '';
-  position: absolute;
+.crt-scanlines {
+  position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    linear-gradient(
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0) 100%
-    );
-  animation: crt-glow 60s linear infinite;
-  opacity: 0.1;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, var(--scanline-intensity)) 50%);
+  background-size: 100% var(--scanline-size);
+  animation: scanlines 0.5s linear infinite; /* Slowed down from 0.2s to 0.5s */
+  z-index: 2;
 }
 
-@keyframes flicker {
-  0% { opacity: 0.6; }
-  42% { opacity: 0.6; }
-  43% { opacity: 0.5; }
-  44% { opacity: 0.6; }
-  46% { opacity: 0.6; }
-  47% { opacity: 0.5; }
-  48% { opacity: 0.6; }
-  90% { opacity: 0.6; }
-  91% { opacity: 0.5; }
-  92% { opacity: 0.6; }
-  100% { opacity: 0.6; }
+.crt-flicker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, var(--flicker-intensity));
+  z-index: 3;
+  animation: flicker 8s infinite; /* Slowed down from 4s to 8s */
+  pointer-events: none;
 }
 
-@keyframes scanline {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100%);
-  }
-}
-
-@keyframes crt-pulse {
-  0% {
-    opacity: 0.8;
-    transform: scale(1.001);
-  }
-  40% {
-    opacity: 0.85;
-    transform: scale(1);
-  }
-  60% {
-    opacity: 0.75;
-    transform: scale(0.999);
-  }
-  100% {
-    opacity: 0.8;
-    transform: scale(1.001);
-  }
-}
-
-@keyframes crt-glow {
-  0% {
-    opacity: 0.1;
-    transform: translateY(0);
-  }
-  50% {
-    opacity: 0.15;
-    transform: translateY(-50%);
-  }
-  100% {
-    opacity: 0.1;
-    transform: translateY(-100%);
-  }
-}
-
-@media (max-width: 768px) {
-  .scanlines::before {
-    background-size: 100% 2px;
-  }
-  
-  .scanlines {
-    opacity: 0.4;
-  }
-  
-  .crt-overlay {
-    opacity: 0.8;
-  }
+.crt-vignette {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, transparent 60%, rgba(0, 0, 0, var(--vignette-opacity)) 100%);
+  z-index: 1;
 }
 
 /* Add a hover effect for the clickable areas */
@@ -260,3 +225,4 @@ area {
     @apply bg-background text-foreground;
   }
 }
+
