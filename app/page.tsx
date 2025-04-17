@@ -1,22 +1,20 @@
 import LinkInBio from "@/components/link-in-bio"
+import CRTOverlay from "@/components/crt-overlay"
 
 export default function Home() {
   return (
-    <>
-      <div className="scanlines" />
-      <div className="crt-overlay" />
-      <main
-        className="h-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url(/images/background.png)",
-          backgroundSize: "200% 200%",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          animation: "diagonalScroll 60s linear infinite",
-        }}
-      >
-        <LinkInBio />
-      </main>
-    </>
+    <main
+      className="min-h-screen w-full flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
+      style={{
+        backgroundImage: "url(/images/background.png)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        animation: "diagonalScroll 90s linear infinite",
+      }}
+    >
+      <LinkInBio />
+      <CRTOverlay />
+    </main>
   )
 }
