@@ -15,29 +15,29 @@ interface LinkItem {
 const links: LinkItem[] = [
   {
     name: "stream",
-    top: 780,
-    height: 80,
+    top: 380,
+    height: 70,
     href: "https://open.spotify.com/artist/6dr34VkpdPJY7Do3PYeKoT",
     alt: "Stream Music",
   },
   {
     name: "soundcloud",
-    top: 880,
-    height: 80,
+    top: 460,
+    height: 70,
     href: "https://soundcloud.com/heavymetaldg",
     alt: "SoundCloud",
   },
   {
     name: "social",
-    top: 980,
-    height: 80,
+    top: 540,
+    height: 70,
     href: "https://www.instagram.com/heavymetalisloading/",
     alt: "Social Media",
   },
   {
     name: "contact",
-    top: 1080,
-    height: 80,
+    top: 620,
+    height: 70,
     href: "mailto:heavymetalisloading@gmail.com",
     alt: "Contact",
   },
@@ -68,7 +68,7 @@ export default function LinkInBio() {
           src="/images/menu.png"
           alt="Heavymetal Navigation Menu"
           width={600}
-          height={1200}
+          height={800}
           priority
           className="w-full h-auto"
         />
@@ -92,5 +92,4 @@ export default function LinkInBio() {
     </div>
   )
 }
-
 
