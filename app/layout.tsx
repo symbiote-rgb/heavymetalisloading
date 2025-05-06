@@ -6,7 +6,6 @@ import { Analytics } from "@vercel/analytics/react"
 export const metadata: Metadata = {
   title: "Heavymetal. - Link in Bio",
   description: "Links to music, social media, and contact information",
-  generator: 'v0.dev'
 }
 
 export default function RootLayout({
