@@ -1,11 +1,12 @@
 import type React from "react"
 import "./globals.css"
 import type { Metadata } from "next"
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
-  title: "Heavymetal - Link in Bio",
+  title: "Heavymetal. - Link in Bio",
   description: "Links to music, social media, and contact information",
-    generator: 'v0.dev'
+  generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>{children}</body>
+      <Analytics />
     </html>
   )
 }
