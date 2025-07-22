@@ -7,7 +7,7 @@ export default function Home() {
       className="min-h-screen w-full flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden scrolling-background"
       style={{
         backgroundImage: "url(/images/0005.png)",
-        backgroundSize: "200% 200%",
+        backgroundSize: "100% 100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
