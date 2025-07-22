@@ -80,10 +80,10 @@ export default function LinkInBio() {
     <div ref={containerRef} className="relative w-full max-w-[600px] mx-auto px-4 h-full flex items-center">
       <div className="relative w-full">
         <Image
-          src="/images/menu.png"
+          src="/images/landingpagemenu1.png"
           alt="Heavymetal Navigation Menu"
-          width={600}
-          height={800}
+          width={3840}
+          height={3840}
           priority
           className="w-full h-auto"
         />
